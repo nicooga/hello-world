@@ -1,6 +1,9 @@
 {
   "include": ["src/**/*.ts"],
   "compilerOptions": {
+    // Used in tests
+    "experimentalDecorators": true,
+
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */

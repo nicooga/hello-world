@@ -1,12 +1,23 @@
 {
+	"scripts": {
+		"test": "mocha --require source-map-support/register --require ts-node/register src/**/*test.ts",
+		"test:watch": "nodemon -w 'src/**/*' -e ts -x 'pnpm run test' || 1"
+	},
 	"dependencies": {
 		"hello-world": "link:"
 	},
 	"devDependencies": {
+		"@testdeck/mocha": "^0.3.3",
+		"@types/chai": "^4.3.4",
+		"@types/chai-as-promised": "^7.1.5",
 		"@types/node": "^18.11.17",
 		"@typescript-eslint/eslint-plugin": "^5.47.0",
 		"@typescript-eslint/parser": "^5.47.0",
+		"chai": "^4.3.7",
+		"chai-as-promised": "^7.1.1",
 		"eslint": "^8.30.0",
+		"nodemon": "^2.0.20",
+		"source-map-support": "^0.5.21",
 		"ts-node": "^10.9.1",
 		"typescript": "^4.9.4"
 	}
