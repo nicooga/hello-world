@@ -1,6 +1,14 @@
 {
   "include": ["src/**/*.ts"],
   "compilerOptions": {
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@domains/*": ["./src/domains/*"],
+      "@infrastructure/*": ["./src/infrastructure/*"],
+      "@abstract/*": ["./src/abstract/*"],
+      "@test/*": ["./src/test/*"],
+    },
+
     // Used in tests
     "experimentalDecorators": true,
 

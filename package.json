@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"test": "mocha --require source-map-support/register --require ts-node/register src/**/*test.ts",
+		"test": "mocha --require source-map-support/register --require ts-node/register --require tsconfig-paths/register src/**/*test.ts",
 		"test:watch": "nodemon -w 'src/**/*' -e ts -x 'pnpm run test' || 1"
 	},
 	"dependencies": {
@@ -19,6 +19,7 @@
 		"nodemon": "^2.0.20",
 		"source-map-support": "^0.5.21",
 		"ts-node": "^10.9.1",
+		"tsconfig-paths": "^4.1.1",
 		"typescript": "^4.9.4"
 	}
 }
