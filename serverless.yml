@@ -1,0 +1,19 @@
+service: hello-world
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "${self:provider.stage}-users-table"
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
