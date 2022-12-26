@@ -1,13 +1,20 @@
 service: hello-world
+
+plugins:
+  - serverless-dotenv-plugin
+
 provider:
   name: aws
-  stage: ${opt:stage, 'dev'}
+  stage: ${env:NODE_ENV, 'dev'}
+  environment:
+    AWS_REGION: ''
+
 resources:
   Resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: "${self:provider.stage}-users-table"
+        TableName: "${self:provider.stage}-authentication-users"
         AttributeDefinitions:
           - AttributeName: email
             AttributeType: S
