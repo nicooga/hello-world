@@ -1,3 +1,4 @@
+.build/
 node_modules/
-.serverlessnode_modules/
-.serverless/
+cdk.out/
+build/
