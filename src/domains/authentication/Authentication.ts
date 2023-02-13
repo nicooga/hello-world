@@ -1,14 +1,15 @@
-import User, { InvalidEmailError } from './User';
-
 import Maybe from '@abstract/Maybe';
 
 import { UserRepository } from './abstract/UserRepository';
 import { PasswordHasher } from './abstract/PasswordHasher';
+import CryptoPasswordHasher from './infrastructure/CryptoPasswordHasher';
+
+import User, { InvalidEmailError } from './User';
 
 export default class Authentication {
     constructor(
         private readonly userRepository: UserRepository,
-        private readonly passwordHasher: PasswordHasher
+        private readonly passwordHasher: PasswordHasher = new CryptoPasswordHasher()
     ) { }
 
     async createUser(p: {
@@ -16,7 +17,7 @@ export default class Authentication {
         name: string,
         password: string
     }): Promise<Maybe<User, InvalidEmailError>> {
-        const hashedPassword = this.passwordHasher.hash(p.password);  
+        const hashedPassword = this.passwordHasher.hash(p.password);
 
         try {
             const user = new User(p.email, p.name, hashedPassword);

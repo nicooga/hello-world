@@ -1,13 +1,12 @@
 import { suite, test } from '@testdeck/mocha';
-import crypto from 'crypto';
 
 import expect from '@test/expect';
 import Maybe from '@abstract/Maybe';
 
 import { UserRepository } from './abstract/UserRepository';
-import { PasswordHasher } from './abstract/PasswordHasher';
 import User, { InvalidEmailError } from './User';
 import Authentication, { InvalidPasswordError, MissingUserError } from './Authentication';
+import CryptoPasswordHasher from './infrastructure/CryptoPasswordHasher';
 
 const TEST_HASHED_PASSWORD = 'test hash';
 const TEST_EMAIL = 'some-email@email.com';
@@ -152,13 +151,12 @@ class TestUserRepository implements UserRepository {
     }
 }
 
-class TestPasswordHasher implements PasswordHasher {
+class TestPasswordHasher extends CryptoPasswordHasher {
     private enableMock = true;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    hash(s: string): string {
+    override hash(s: string): string {
         if (this.enableMock) return TEST_HASHED_PASSWORD;
-        return crypto.createHash('sha256').update(s).digest().toString();
+        return super.hash(s);
     }
 
     disableMock() {
