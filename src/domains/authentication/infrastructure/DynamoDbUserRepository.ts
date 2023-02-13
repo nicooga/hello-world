@@ -1,21 +1,23 @@
 import DynamoDBClient from '@infrastructure/DynamoDBClient';
 import Maybe from '@abstract/Maybe';
+import Config from '@src/Config';
 
 import { UserRepository } from '../abstract/UserRepository';
 import User from '../User';
-import Config from '@src/Config';
-
-const TABLE = `${Config.env}-authentication-users`;
 
 export default class DynamoDbUserRepository implements UserRepository {
+    constructor(
+        private readonly tableName: string = Config.dynamoDbTables.authenticationUsers
+    ) { }
+
     async persistUser(user: User): Promise<User> {
-        await DynamoDBClient.put({ TableName: TABLE, Item: user });
+        await DynamoDBClient.put({ TableName: this.tableName, Item: user });
         return user;
     }
 
     async getUserByEmail(email: string): Promise<Maybe<User, Error>> {
         const { Items } = await DynamoDBClient.query({
-            TableName: TABLE,
+            TableName: this.tableName,
             KeyConditionExpression: '#email = :email',
             ExpressionAttributeNames: { '#email': 'email' },
             ExpressionAttributeValues: { ':email': email }

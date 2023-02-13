@@ -20,6 +20,7 @@ export class DynamoDbUserRepositoryTest {
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const retrieval: any = await repo.getUserByEmail(email);
+
         expect(retrieval.ok).to.eq(true);
         expect(retrieval.result).to.be.instanceOf(User);
         expect(retrieval.result).to.include({ email, name, hashedPassword });

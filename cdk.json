@@ -1,0 +1,3 @@
+{
+  "app": "pnpm exec ts-node --compilerOptions='{\"target\": \"esnext\", \"module\": \"commonjs\"}' aws-app.ts"
+}

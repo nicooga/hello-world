@@ -1,6 +1,9 @@
-export default {
-    env: getEnv('NODE_ENV') ?? 'dev',
-    awsRegion: getEnv('AWS_REGION'),
+export default new class Config {
+    public readonly env = getEnv('NODE_ENV');
+    public readonly awsRegion = getEnv('AWS_REGION');
+    public readonly dynamoDbTables = {
+        authenticationUsers: `${this.env}-authentication-users`
+    };
 };
 
 function getEnv(varName: string): string {
